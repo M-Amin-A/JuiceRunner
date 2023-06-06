@@ -5,8 +5,10 @@ using UnityEngine;
 public class GroundGenerator : MonoBehaviour
 {
     public GameObject sampleGround;
-    private Transform characterTransform;
+    public GameObject sampleFruit;
 
+    private Transform characterTransform;
+   
     private Queue<GameObject> grounds = new Queue<GameObject>();
 
     private const float initialCharacterPosition = -1000f;
@@ -37,5 +39,13 @@ public class GroundGenerator : MonoBehaviour
         ground.SetActive(true);
         ground.transform.position = new Vector3(0, 0, zPosition);
         grounds.Enqueue(ground);
+
+        GameObject fruit=Instantiate(sampleFruit);
+        fruit.transform.position = new Vector3(0, fruit.transform.position.y, zPosition);
+    }
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.GetType() == sampleFruit.GetType())
+            collider.gameObject.transform.position += new Vector3(1, 1, 0);
     }
 }
