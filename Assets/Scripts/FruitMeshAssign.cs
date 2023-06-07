@@ -14,7 +14,6 @@ public class FruitMeshAssign : MonoBehaviour
     void Start()
     {
         MeshFilter meshFilter = gameObject.GetComponent<MeshFilter>();
-        
         int randomIndex = Random.Range(0, numberOfMeshes-1);
         fruitType = getFruitTypeByIndex(randomIndex);
         meshFilter.mesh = getMeshOfFruitType(fruitType);
