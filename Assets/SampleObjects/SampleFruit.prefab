@@ -111,6 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c618bc4224d8a7945bdde3d74329a15c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appleMesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
-  bananaMesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
-  pineAppleMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  appleMesh: {fileID: 5356938551634266099, guid: 45f71a37c1fb8064ba490dd134ee4362, type: 3}
+  bananaMesh: {fileID: -8678823145569952518, guid: 9978cb027dbc8c141abb70c487a5f09b, type: 3}
+  carrotMesh: {fileID: -336103021598580943, guid: ef2a9cbf139fb9d4a8a4061b6310fd6f, type: 3}
+  cherryMesh: {fileID: 4493585093827132993, guid: 0dc9aa5cb8b2ac841a213949344a449e, type: 3}
+  purpleGrapesMesh: {fileID: 8937665938935388488, guid: b2ddc757319a5e044a4dfd25758fdbca, type: 3}
+  greenGrapesMesh: {fileID: 6335965048631572536, guid: 6e4800bd0bcc0f045801e87e071785a6, type: 3}
+  lemonMesh: {fileID: 855131390749405241, guid: 417ea5abe3e7d324995107caa50e8b80, type: 3}
+  orangeMesh: {fileID: -3069829373968261757, guid: ce086a086911eb94c9bbd0d6ed6fdf75, type: 3}
+  pearMesh: {fileID: 1172976467394652218, guid: 36ed759e2f592fb4abe45c58827d7f95, type: 3}
+  pineAppleMesh: {fileID: 5274363045588647073, guid: 428549073ecc83c4fadbe99d9cef4362, type: 3}
+  strawberryMesh: {fileID: -6146871510574282191, guid: d2cbca04ec39d4b43afee8f409379b69, type: 3}
+  tomatoMesh: {fileID: -7576355592890731366, guid: 2778e7600f0fa4e4a91406c03eb2ad02, type: 3}
+  watermelonMesh: {fileID: 8672357428354618314, guid: cc8c0051066dfaf4daec98e16a5deb9c, type: 3}
