@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class CustumerRequest
 {
-    private ArrayList fruitCountPairsQueue = new ArrayList(); 
-
-    public CustumerRequest(KeyValuePair<Fruit.FruitType,int>[] fruitPairs)
+    public ArrayList fruitCountPairs = new ArrayList(); 
+    public CustumerRequest(KeyValuePair<FruitGenerator.FruitType,int>[] fruitPairs)
     {
         for (int i = 0; i < fruitPairs.Length; i++)
-            fruitCountPairsQueue.Add(fruitPairs[i]);
+            fruitCountPairs.Add(fruitPairs[i]);
     }
 }

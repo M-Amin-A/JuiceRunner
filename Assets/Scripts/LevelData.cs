@@ -5,7 +5,7 @@ using UnityEngine;
 public class LevelData
 {
     private int levelNumber;
-    private Queue customerRequestsQueue=new Queue();
+    public Queue customerRequestsQueue=new Queue();
 
     public LevelData(CustumerRequest[] custumerRequests)
     {

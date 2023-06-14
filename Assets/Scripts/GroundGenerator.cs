@@ -5,16 +5,21 @@ using UnityEngine;
 public class GroundGenerator : MonoBehaviour
 {
     public GameObject sampleGround;
-    public GameObject sampleFruit;
+    public FruitGenerator fruitGenerator;
 
     private Transform characterTransform;
    
     private Queue<GameObject> grounds = new Queue<GameObject>();
 
+    public GameObject gameDataObject;
+    private GameData gameData;
+
     private const float initialCharacterPosition = -1000f;
     private const int numberOfGroundsInGame = 5;
     void Start()
     {
+        gameData = gameDataObject.GetComponent<GameData>();
+
         characterTransform = transform;
         for(int i=0;i<numberOfGroundsInGame;i++)
         {
@@ -40,12 +45,21 @@ public class GroundGenerator : MonoBehaviour
         ground.transform.position = new Vector3(0, 0, zPosition);
         grounds.Enqueue(ground);
 
-        GameObject fruit=Instantiate(sampleFruit);
-        fruit.transform.position = new Vector3(0, fruit.transform.position.y, zPosition);
-    }
-    private void OnTriggerEnter(Collider collider)
-    {
-        if (collider.gameObject.GetType() == sampleFruit.GetType())
-            collider.gameObject.transform.position += new Vector3(1, 1, 0);
+
+        //generate fruits
+
+        float leftLimit = characterTransform.gameObject.GetComponent<Character>().leftLimit+0.3f;
+        float rightLimit = characterTransform.gameObject.GetComponent<Character>().rightLimit-0.3f;
+
+        float downLimit = zPosition - sampleGround.transform.localScale.z / 2 + 0.3f;
+        float upLimit = zPosition + sampleGround.transform.localScale.z / 2 - 0.3f;
+
+
+        Vector3 fruitPosition = new Vector3(Random.Range(leftLimit, rightLimit),
+            characterTransform.position.y,
+            Random.Range(downLimit, upLimit));
+
+        fruitGenerator.generate(gameData.getUnclaimedFruitType(),fruitPosition);
+
     }
 }

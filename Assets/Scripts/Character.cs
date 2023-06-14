@@ -1,21 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Character : MonoBehaviour
 {
     public float speed = 0.05f;
     public Transform cameraTransform;
     public Transform sampleGroundTransform;
+    public GameObject sampleParticleSystem;
 
-    private float leftLimit;
-    private float rightLimit;
+    public GameObject gameDataObject;
+    private GameData gameData;
+
+    public float leftLimit;
+    public float rightLimit;
 
     void Start()
     {
         leftLimit = -sampleGroundTransform.localScale.x/2f + 1f;
         rightLimit = sampleGroundTransform.localScale.x/2f - 1f;
 
+        gameData = gameDataObject.GetComponent<GameData>();
     }
 
     void Update()
@@ -54,6 +58,17 @@ public class Character : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.Translate(new Vector3(0.5f, 0, 0));
+        }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if (collider.gameObject.tag == "Fruit")
+        {
+            GameObject particleSystem = Instantiate(sampleParticleSystem,cameraTransform);
+            particleSystem.SetActive(true);
+
+            gameData.fruitClaim(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
         }
     }
 }
