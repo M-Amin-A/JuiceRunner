@@ -14,6 +14,8 @@ public class GroundGenerator : MonoBehaviour
     public GameObject gameDataObject;
     private GameData gameData;
 
+    public GameObject tree;
+
     private const float initialCharacterPosition = -1000f;
     private const int numberOfGroundsInGame = 5;
 
@@ -81,5 +83,8 @@ public class GroundGenerator : MonoBehaviour
                     fruitGenerator.generateRandom(fruitPosition);
             }
         }
+
+        GameObject newTree=Instantiate(tree);
+        newTree.transform.position = new Vector3(0,0,zPosition);
     }
 }

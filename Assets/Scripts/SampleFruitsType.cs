@@ -8,6 +8,9 @@ public class SampleFruitsType : MonoBehaviour
 
     private void Update()
     {
+        if (AppData.currentGameData != null && AppData.currentGameData.gameFinished)
+            return;
+
         transform.Rotate(0, 40f * Time.deltaTime, 0, Space.World);
 
         if (transform.position.z < Camera.main.transform.position.z) 

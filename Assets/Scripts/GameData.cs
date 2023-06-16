@@ -57,7 +57,9 @@ public class GameData : MonoBehaviour
 
     private void dequeueNewRequest()
     {
-        if(customerRequestsQueue.Count==0)
+        currentRequestBox.GetComponent<Animator>().SetTrigger("boxGo");
+
+        if (customerRequestsQueue.Count==0)
         {
             finishGame(true);
             return;
@@ -68,7 +70,6 @@ public class GameData : MonoBehaviour
         foreach (KeyValuePair<FruitGenerator.FruitType, int> pair in newCustomerRequest.fruitCountPairs)
             currentRequest.Add(pair.Key,pair.Value);
 
-        currentRequestBox.GetComponent<Animator>().SetTrigger("boxGo");
 
         GameObject newRequestBox = Instantiate(currentRequestBox,currentRequestBox.transform.parent);
         newRequestBox.SetActive(true);
@@ -125,17 +126,22 @@ public class GameData : MonoBehaviour
         return s;
     }
 
-    public void fruitClaim(FruitGenerator.FruitType fruitType)
+    public bool fruitClaim(FruitGenerator.FruitType fruitType)
     {
         if (currentRequest.ContainsKey(fruitType) && currentRequest[fruitType] > 0)
+        {
             currentRequest[fruitType]--;
 
-        requestBoxTextSet();
+            requestBoxTextSet();
 
-        increaseGameScore(1);
+            increaseGameScore(1);
 
-        if (hasRequestCompleted())
-            dequeueNewRequest();
+            if (hasRequestCompleted())
+                dequeueNewRequest();
+
+            return true;
+        }
+        return false;
     }
     private bool hasRequestCompleted()
     {

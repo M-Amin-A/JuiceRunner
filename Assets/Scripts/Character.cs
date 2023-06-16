@@ -16,10 +16,12 @@ public class Character : MonoBehaviour
     public float leftLimit;
     public float rightLimit;
 
+    private bool isBlinking = false;
+
     void Start()
     {
-        leftLimit = -sampleGroundTransform.localScale.x/2f + 1f;
-        rightLimit = sampleGroundTransform.localScale.x/2f - 1f;
+        leftLimit = -sampleGroundTransform.localScale.x / 2f + 1f;
+        rightLimit = sampleGroundTransform.localScale.x / 2f - 1f;
 
         gameData = gameDataObject.GetComponent<GameData>();
     }
@@ -31,16 +33,16 @@ public class Character : MonoBehaviour
         checkKeyPress();
         checkTouchInput();
 
-        transform.Translate(new Vector3(0, 0, speed*Time.deltaTime));
+        transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
         cameraTransform.position += new Vector3(0, 0, speed * Time.deltaTime);
     }
 
     private void checkTouchInput()
     {
-        if(Input.touchCount>0)
+        if (Input.touchCount > 0)
         {
             Touch touch = Input.touches[0];
-            if(touch.phase == TouchPhase.Moved)
+            if (touch.phase == TouchPhase.Moved)
             {
                 Vector3 characterNewPosition = new Vector3(touch.deltaPosition.x / 100.0f, 0, 0) + transform.position;
                 if (characterNewPosition.x < leftLimit)
@@ -69,16 +71,37 @@ public class Character : MonoBehaviour
     {
         if (collider.gameObject.tag == "Fruit")
         {
-            GameObject particleSystem = Instantiate(sampleParticleSystem,cameraTransform);
-            ParticleSystem.MainModule main = particleSystem.GetComponent<ParticleSystem>().main;
-            main.startColor = FruitGenerator.getColorOfFruitType(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
+            if (isBlinking)
+                return;
 
             audioSource.Play();
-            particleSystem.SetActive(true);
 
-            collider.gameObject.SetActive(false);
+            if (gameData.fruitClaim(collider.gameObject.GetComponent<SampleFruitsType>().fruitType))
+            {
+                GameObject particleSystem = Instantiate(sampleParticleSystem, cameraTransform);
+                ParticleSystem.MainModule main = particleSystem.GetComponent<ParticleSystem>().main;
+                main.startColor = FruitGenerator.getColorOfFruitType(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
 
-            gameData.fruitClaim(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
+                particleSystem.SetActive(true);
+
+                collider.gameObject.SetActive(false);
+            }
+            else
+            {
+                isBlinking = true;
+                GetComponent<Animator>().SetTrigger("startBlinking");
+                Handheld.Vibrate();
+                StartCoroutine(stopBlinking(3f)) ;
+            }
         }
+    }
+
+    private IEnumerator stopBlinking(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        isBlinking = false;
+        GetComponent<Animator>().SetTrigger("pauseBlinking");
+        Material material = GetComponent<MeshRenderer>().material;
+        GetComponent<MeshRenderer>().material.color = new Color(material.color.r, material.color.g, material.color.b, 1);
     }
 }
