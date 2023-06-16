@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GroundGenerator : MonoBehaviour
 {
     public GameObject sampleGround;
     public FruitGenerator fruitGenerator;
-
+	
     private Transform characterTransform;
    
     private Queue<GameObject> grounds = new Queue<GameObject>();
 
     public GameObject gameDataObject;
     private GameData gameData;
+	public GameObject land1;	
+	public GameObject land2;	
+	public GameObject land3;	
 
     private const float initialCharacterPosition = -1000f;
     private const int numberOfGroundsInGame = 5;
@@ -59,14 +63,14 @@ public class GroundGenerator : MonoBehaviour
         float downLimit = zPosition - sampleGround.transform.localScale.z / 2 + 0.5f;
         float upLimit = zPosition + sampleGround.transform.localScale.z / 2 - 0.5f;
 
-        int speciallyGeneratedFruitLine = Random.Range(0, numberOfGroundLinesForFruitGeneration-1);
+        int speciallyGeneratedFruitLine = UnityEngine.Random.Range(0, numberOfGroundLinesForFruitGeneration-1);
 
         for (int i = 0; i < numberOfGroundLinesForFruitGeneration; i++)
         {
             float fruitLineWidth = sampleGround.transform.localScale.z / numberOfGroundLinesForFruitGeneration;
             float fruitZPosition = fruitLineWidth * i + fruitLineWidth / 2 + (zPosition - sampleGround.transform.localScale.z / 2);
             
-            Vector3 fruitPosition = new Vector3(Random.Range(leftLimit, rightLimit),
+            Vector3 fruitPosition = new Vector3(UnityEngine.Random.Range(leftLimit, rightLimit),
             characterTransform.position.y,
             fruitZPosition);
 
@@ -76,10 +80,42 @@ public class GroundGenerator : MonoBehaviour
             }
             else
             {
-                float dice = Random.Range(0f, 1f);
+                float dice = UnityEngine.Random.Range(0f, 1f);
                 if(dice<fruitGenerationPropabability)
                     fruitGenerator.generateRandom(fruitPosition);
             }
         }
+		 
+		GameObject landInstance;
+		int number = UnityEngine.Random.Range(0, 3); 
+		switch(number){
+			case 0 : landInstance = GameObject.Instantiate(land1); break;
+			case 1 : landInstance = GameObject.Instantiate(land2);	break;
+			default : landInstance = GameObject.Instantiate(land3); break;
+		}
+		
+		landInstance.SetActive(true);
+		
+		if(number == 0)
+			landInstance.transform.position = new Vector3(30f, -0.5f , zPosition);
+		else
+			landInstance.transform.position = new Vector3(30f, 0 , zPosition);
+			
+		GameObject leftLandInstance;
+		int number2 = UnityEngine.Random.Range(0, 3); 
+		switch(number2){
+			case 0 : leftLandInstance = GameObject.Instantiate(land1); break;
+			case 1 : leftLandInstance = GameObject.Instantiate(land2);	break;
+			default : leftLandInstance = GameObject.Instantiate(land3); break;
+		}
+		
+		leftLandInstance.SetActive(true);
+		
+		if(number2 == 0)
+			leftLandInstance.transform.position = new Vector3(-30f, -0.5f , zPosition);
+		else
+			leftLandInstance.transform.position = new Vector3(-30f, 0 , zPosition);
+		
+		
     }
 }
