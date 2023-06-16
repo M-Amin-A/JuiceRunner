@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ParticleSystem : MonoBehaviour
+public class ParticleSystemAnimate : MonoBehaviour
 {
     // Start is called before the first frame update
     public AnimationClip clip;

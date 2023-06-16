@@ -37,7 +37,7 @@ public class FruitGenerator : MonoBehaviour
         GameObject instance = GameObject.Instantiate(sampleFruit);
 
         instance.GetComponent<SampleFruitsType>().fruitType = fruitType;
-        instance.transform.position = position;
+        instance.transform.position = new Vector3(position.x,sampleFruit.transform.position.y,position.z);
     }
 
 
@@ -108,7 +108,7 @@ public class FruitGenerator : MonoBehaviour
         return FruitType.STRAWBERRY;
     }
 
-    public int getSpriteIndexOfFruitType(FruitType type)
+    public static int getSpriteIndexOfFruitType(FruitType type)
     {
         switch (type)
         {
@@ -141,6 +141,41 @@ public class FruitGenerator : MonoBehaviour
         }
 
         return 0;
+    }
+
+    public static Color getColorOfFruitType(FruitType type)
+    {
+        switch (type)
+        {
+            case FruitType.APPLE:
+                return new Color(245f / 255f, 211f / 255f, 140f / 255f);
+            case FruitType.BANANA:
+                return new Color(255f / 255f, 221f / 255f, 0);
+            case FruitType.CARROT:
+                return new Color(235f / 255f, 97f / 255f, 12f / 255f);
+            case FruitType.CHERRY:
+                return new Color(158f / 255f, 0, 0);
+            case FruitType.PURPLE_GRAPES:
+                return new Color(61f / 255f, 0, 79f / 255f);
+            case FruitType.GREEN_GRAPES:
+                return new Color(75f / 255f, 196f / 255f, 121f / 255f);
+            case FruitType.LEMON:
+                return new Color(238f / 255f, 255f / 255f, 0);
+            case FruitType.ORANGE:
+                return new Color(255f / 255f, 140f / 255f, 0);
+            case FruitType.PEAR:
+                return new Color(228f / 255f, 232f / 255f, 142f / 255f);
+            case FruitType.PINE_APPLE:
+                return new Color(255f / 255f, 247f / 255f, 0);
+            case FruitType.STRAWBERRY:
+                return new Color(212f / 255f, 63f / 255f, 78f / 255f);
+            case FruitType.TOMATO:
+                return new Color(255f / 255f, 0, 26f / 255f);
+            case FruitType.WATERMENON:
+                return new Color(255f / 255f, 61f / 255f, 81f / 255f);
+        }
+
+        return new Color(255f / 255f, 255f / 255f, 255f / 255f);
     }
 
     public enum FruitType

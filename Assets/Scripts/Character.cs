@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Character : MonoBehaviour
 {
-    public float speed = 0.05f;
+    private float speed = 10f;
     public Transform cameraTransform;
     public Transform sampleGroundTransform;
     public GameObject sampleParticleSystem;
+    public AudioSource audioSource;
 
     public GameObject gameDataObject;
     private GameData gameData;
@@ -24,11 +26,13 @@ public class Character : MonoBehaviour
 
     void Update()
     {
+        if (gameData.gameFinished) return;
+
         checkKeyPress();
         checkTouchInput();
 
-        transform.Translate(new Vector3(0, 0, speed));
-        cameraTransform.position += new Vector3(0, 0, speed);
+        transform.Translate(new Vector3(0, 0, speed*Time.deltaTime));
+        cameraTransform.position += new Vector3(0, 0, speed * Time.deltaTime);
     }
 
     private void checkTouchInput()
@@ -66,7 +70,13 @@ public class Character : MonoBehaviour
         if (collider.gameObject.tag == "Fruit")
         {
             GameObject particleSystem = Instantiate(sampleParticleSystem,cameraTransform);
+            ParticleSystem.MainModule main = particleSystem.GetComponent<ParticleSystem>().main;
+            main.startColor = FruitGenerator.getColorOfFruitType(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
+
+            audioSource.Play();
             particleSystem.SetActive(true);
+
+            collider.gameObject.SetActive(false);
 
             gameData.fruitClaim(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
         }

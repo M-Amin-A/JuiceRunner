@@ -16,6 +16,9 @@ public class GroundGenerator : MonoBehaviour
 
     private const float initialCharacterPosition = -1000f;
     private const int numberOfGroundsInGame = 5;
+
+    private const float fruitGenerationPropabability = 0.2f;
+    private const int numberOfGroundLinesForFruitGeneration = 10;
     void Start()
     {
         gameData = gameDataObject.GetComponent<GameData>();
@@ -29,6 +32,8 @@ public class GroundGenerator : MonoBehaviour
 
     void Update()
     {
+        if (gameData.gameFinished) return;
+
         GameObject firstGround = grounds.Peek();
 
         if(characterTransform.position.z > firstGround.transform.position.z + sampleGround.transform.localScale.z)
@@ -48,18 +53,33 @@ public class GroundGenerator : MonoBehaviour
 
         //generate fruits
 
-        float leftLimit = characterTransform.gameObject.GetComponent<Character>().leftLimit+0.3f;
-        float rightLimit = characterTransform.gameObject.GetComponent<Character>().rightLimit-0.3f;
+        float leftLimit = characterTransform.gameObject.GetComponent<Character>().leftLimit+0.5f;
+        float rightLimit = characterTransform.gameObject.GetComponent<Character>().rightLimit-0.5f;
 
-        float downLimit = zPosition - sampleGround.transform.localScale.z / 2 + 0.3f;
-        float upLimit = zPosition + sampleGround.transform.localScale.z / 2 - 0.3f;
+        float downLimit = zPosition - sampleGround.transform.localScale.z / 2 + 0.5f;
+        float upLimit = zPosition + sampleGround.transform.localScale.z / 2 - 0.5f;
 
+        int speciallyGeneratedFruitLine = Random.Range(0, numberOfGroundLinesForFruitGeneration-1);
 
-        Vector3 fruitPosition = new Vector3(Random.Range(leftLimit, rightLimit),
+        for (int i = 0; i < numberOfGroundLinesForFruitGeneration; i++)
+        {
+            float fruitLineWidth = sampleGround.transform.localScale.z / numberOfGroundLinesForFruitGeneration;
+            float fruitZPosition = fruitLineWidth * i + fruitLineWidth / 2 + (zPosition - sampleGround.transform.localScale.z / 2);
+            
+            Vector3 fruitPosition = new Vector3(Random.Range(leftLimit, rightLimit),
             characterTransform.position.y,
-            Random.Range(downLimit, upLimit));
+            fruitZPosition);
 
-        fruitGenerator.generate(gameData.getUnclaimedFruitType(),fruitPosition);
-
+            if (i == speciallyGeneratedFruitLine)
+            {
+                fruitGenerator.generate(gameData.getUnclaimedFruitType(), fruitPosition);
+            }
+            else
+            {
+                float dice = Random.Range(0f, 1f);
+                if(dice<fruitGenerationPropabability)
+                    fruitGenerator.generateRandom(fruitPosition);
+            }
+        }
     }
 }

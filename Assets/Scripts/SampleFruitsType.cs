@@ -8,6 +8,12 @@ public class SampleFruitsType : MonoBehaviour
 
     private void Update()
     {
-        transform.Rotate(0, 0.5f, 0, Space.World);
+        transform.Rotate(0, 40f * Time.deltaTime, 0, Space.World);
+
+        if (transform.position.z < Camera.main.transform.position.z) 
+        {
+            enabled = false;
+            gameObject.SetActive(false);
+        }
     }
 }

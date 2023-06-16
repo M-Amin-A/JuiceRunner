@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class LevelData
 {
-    private int levelNumber;
+    public float fruitGenerationProbability;
+    public int timeInSeconds;
     public Queue customerRequestsQueue=new Queue();
 
-    public LevelData(CustumerRequest[] custumerRequests)
+    public LevelData(CustumerRequest[] custumerRequests,int timeInSecond, float fruitGenerationProbablity)
     {
         for (int i = 0; i < custumerRequests.Length; i++)
             customerRequestsQueue.Enqueue(custumerRequests[i]);
+
+        this.timeInSeconds = timeInSecond;
+        this.fruitGenerationProbability = fruitGenerationProbablity;
     }
 
 }
