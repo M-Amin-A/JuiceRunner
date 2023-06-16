@@ -10,4 +10,19 @@ public class UI_MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("SampleScene");
     }
+
+    public void setOnClicked1()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void setOnClicked2()
+    {
+        SceneManager.LoadScene("SampleScene");
+    }
+
+    public void setOnClicked3()
+    {
+        SceneManager.LoadScene("MenuScene");
+    }
 }
