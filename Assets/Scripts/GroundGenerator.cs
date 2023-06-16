@@ -26,7 +26,7 @@ public class GroundGenerator : MonoBehaviour
         characterTransform = transform;
         for(int i=0;i<numberOfGroundsInGame;i++)
         {
-            generateNewGround(initialCharacterPosition + i * sampleGround.transform.localScale.z);
+            generateNewGround(initialCharacterPosition + (i + 1) * sampleGround.transform.localScale.z);
         }
     }
 

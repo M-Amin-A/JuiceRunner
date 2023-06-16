@@ -387,6 +387,68 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &665318208
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 665318211}
+  - component: {fileID: 665318210}
+  - component: {fileID: 665318209}
+  m_Layer: 0
+  m_Name: Ads
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &665318209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665318208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16b5038fe60d7d94a8d900c13fb38449, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Interstitial_Android
+  _iOsAdUnitId: Interstitial_iOS
+--- !u!114 &665318210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665318208}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf87a2ac7a830744485851f5de3ccb52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidGameId: 5316742
+  _iOSGameId: 5316743
+  _testMode: 1
+--- !u!4 &665318211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 665318208}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.3750105, y: 2.4467177, z: -1007.2058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -5447,7 +5509,7 @@ Animator:
   m_GameObject: {fileID: 938390071}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 03ba1a43bdcaf3a449c5bb72c5870d88, type: 2}
+  m_Controller: {fileID: 22100000, guid: 006ffa48963b2a14e85f9e57105450e8, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -5574,6 +5636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreTextBox: {fileID: 1582589264}
   currentRequestBox: {fileID: 1162765801}
+  Ads: {fileID: 665318208}
   timeTextBox: {fileID: 1917147174}
   gameMusic: {fileID: 785961075}
   gameFinished: 0
@@ -5807,6 +5870,7 @@ GameObject:
   - component: {fileID: 1254164890}
   - component: {fileID: 1254164893}
   - component: {fileID: 1254164892}
+  - component: {fileID: 1254164894}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -5886,7 +5950,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1254164885}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.27, y: 1.73, z: -999.53}
+  m_LocalPosition: {x: 0, y: 1.73, z: -999.53}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5943,6 +6007,27 @@ MonoBehaviour:
   sampleGround: {fileID: 1467632518}
   fruitGenerator: {fileID: 88611965}
   gameDataObject: {fileID: 1117502973}
+--- !u!95 &1254164894
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1254164885}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f0985cc50453a554881c56bd4dc7bfe6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1360046283
 GameObject:
   m_ObjectHideFlags: 0
@@ -6099,7 +6184,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &1467632520
 MeshRenderer:
   m_ObjectHideFlags: 0

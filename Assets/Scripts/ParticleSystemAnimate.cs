@@ -10,13 +10,26 @@ public class ParticleSystemAnimate : MonoBehaviour
 
     void Start()
     {
+        AnimationClip newClip = Instantiate(clip);
+
         float startTime = 0;
         float startValue = characterTransform.position.x;
         float endTime = 1;
         float endValue = 2.5f;
         AnimationCurve curve = AnimationCurve.Linear(startTime, startValue, endTime, endValue);
         string relativeObjectName = string.Empty; // Means the object holding the animator component
-        clip.SetCurve(relativeObjectName, typeof(Transform), "localPosition.x", curve);
+        newClip.SetCurve(relativeObjectName, typeof(Transform), "localPosition.x", curve);
+
+        AnimatorOverrideController animatorOverrideController= (AnimatorOverrideController)GetComponent<Animator>().runtimeAnimatorController;
+        GetComponent<Animator>().runtimeAnimatorController = Instantiate(animatorOverrideController);
+        animatorOverrideController = (AnimatorOverrideController)GetComponent<Animator>().runtimeAnimatorController;
+
+        KeyValuePair<AnimationClip, AnimationClip> pair = new(clip, newClip);
+        List<KeyValuePair<AnimationClip, AnimationClip> > list = new();
+        list.Add(pair);
+
+        animatorOverrideController.ApplyOverrides(list);
+        
     }
 
     // Update is called once per frame

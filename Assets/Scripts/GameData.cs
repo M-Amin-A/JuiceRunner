@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 public class GameData : MonoBehaviour
 {
     private int currentGameScore = 0;
@@ -14,6 +13,7 @@ public class GameData : MonoBehaviour
 
     public TextMeshProUGUI scoreTextBox;
     public GameObject currentRequestBox;
+    public GameObject Ads;
 
     private float remainingTime = 120;
     public TextMeshProUGUI timeTextBox;
@@ -31,6 +31,7 @@ public class GameData : MonoBehaviour
         dequeueNewRequest();
 
         updateTimeBox();
+        Ads.GetComponent<AdsInitializer>().InitializeAds();
     }
 
     private void Update()
@@ -49,6 +50,9 @@ public class GameData : MonoBehaviour
     {
         gameFinished = true;
         gameMusic.Stop();
+
+        Ads.GetComponent<AdsInitializer>().InitializeAds();
+
     }
 
     private void dequeueNewRequest()
@@ -152,13 +156,16 @@ public class GameData : MonoBehaviour
         if (currentRequest == null)
             return FruitGenerator.FruitType.CHERRY;
 
-        foreach(KeyValuePair<FruitGenerator.FruitType, int> pair in currentRequest)
-        {
+        ArrayList unclaimedFruits = new();
+        foreach (KeyValuePair<FruitGenerator.FruitType, int> pair in currentRequest)
             if (pair.Value > 0)
-                return pair.Key;
-        }
+                unclaimedFruits.Add(pair.Key);
 
-        return FruitGenerator.FruitType.PINE_APPLE;
+        if(unclaimedFruits.Count==0)
+            return FruitGenerator.FruitType.PINE_APPLE;
+
+        int randomIndex = Random.Range(0, unclaimedFruits.Count - 1);
+        return (FruitGenerator.FruitType)unclaimedFruits[randomIndex];
     }
 
     /*
