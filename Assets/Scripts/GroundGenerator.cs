@@ -18,8 +18,6 @@ public class GroundGenerator : MonoBehaviour
 	public GameObject land2;	
 	public GameObject land3;	
 
-    public GameObject tree;
-
     private const float initialCharacterPosition = -1000f;
     private const int numberOfGroundsInGame = 5;
 
@@ -118,9 +116,5 @@ public class GroundGenerator : MonoBehaviour
 		else
 			leftLandInstance.transform.position = new Vector3(-30f, 0 , zPosition);
 		
-		
-
-        GameObject newTree=Instantiate(tree);
-        newTree.transform.position = new Vector3(0,0,zPosition);
     }
 }
