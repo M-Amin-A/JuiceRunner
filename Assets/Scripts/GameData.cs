@@ -10,6 +10,8 @@ public class GameData : MonoBehaviour
     private Queue customerRequestsQueue;
 
     private Dictionary<FruitGenerator.FruitType, int> currentRequest;
+    private int numberOfFruitAtFirstOfRequest;
+    private int numberOfFruitClaimed;
 
     public TextMeshProUGUI scoreTextBox;
     public GameObject currentRequestBox;
@@ -18,7 +20,11 @@ public class GameData : MonoBehaviour
     private float remainingTime = 120;
     public TextMeshProUGUI timeTextBox;
 
+    public GameObject liquid;
+
     public AudioSource gameMusic;
+
+    private const float maxLiquidHeight = 5.5f;
 
     public bool gameFinished = false;
     void Start()
@@ -53,22 +59,36 @@ public class GameData : MonoBehaviour
 
         Ads.GetComponent<AdsInitializer>().InitializeAds();
 
+        if (isWin)
+        {
+            AppData.currentLevelIndex++;
+            if (AppData.currentLevelIndex > 2)
+                AppData.currentLevelIndex = 2;
+        }
+
     }
 
     private void dequeueNewRequest()
     {
         currentRequestBox.GetComponent<Animator>().SetTrigger("boxGo");
+        liquid.GetComponent<RectTransform>().localScale = new Vector3(liquid.GetComponent<RectTransform>().localScale.x, 0, 0);
 
-        if (customerRequestsQueue.Count==0)
+        if (customerRequestsQueue.Count == 0)
         {
             finishGame(true);
             return;
         }
 
-        CustumerRequest newCustomerRequest= (CustumerRequest)customerRequestsQueue.Dequeue();
+        CustumerRequest newCustomerRequest = (CustumerRequest)customerRequestsQueue.Dequeue();
         currentRequest = new();
+
+        numberOfFruitAtFirstOfRequest = 0;
+        numberOfFruitClaimed = 0;
         foreach (KeyValuePair<FruitGenerator.FruitType, int> pair in newCustomerRequest.fruitCountPairs)
-            currentRequest.Add(pair.Key,pair.Value);
+        {
+            numberOfFruitAtFirstOfRequest += pair.Value;
+            currentRequest.Add(pair.Key, pair.Value);
+        }
 
 
         GameObject newRequestBox = Instantiate(currentRequestBox,currentRequestBox.transform.parent);
@@ -136,6 +156,10 @@ public class GameData : MonoBehaviour
 
             increaseGameScore(1);
 
+            StartCoroutine(increaseLiquid(2,fruitType));
+
+            numberOfFruitClaimed++;
+
             if (hasRequestCompleted())
                 dequeueNewRequest();
 
@@ -190,5 +214,13 @@ public class GameData : MonoBehaviour
     public int getGameScore()
     {
         return currentGameScore;
+    }
+
+    private IEnumerator increaseLiquid(float waitTime,FruitGenerator.FruitType fruitType)
+    {
+        yield return new WaitForSeconds(waitTime);
+        liquid.GetComponent<RectTransform>().localScale = new Vector3(liquid.GetComponent<RectTransform>().localScale.x, (float)numberOfFruitClaimed / (float)numberOfFruitAtFirstOfRequest * maxLiquidHeight, 0);
+
+        liquid.GetComponent<RawImage>().color = FruitGenerator.getColorOfFruitType(fruitType);
     }
 }
