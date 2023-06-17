@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     private float speed = 10f;
@@ -9,7 +9,7 @@ public class Character : MonoBehaviour
     public Transform sampleGroundTransform;
     public GameObject sampleParticleSystem;
     public AudioSource audioSource;
-
+    //public GameObject splash;
     public GameObject gameDataObject;
     private GameData gameData;
 
@@ -90,6 +90,10 @@ public class Character : MonoBehaviour
             {
                 isBlinking = true;
                 GetComponent<Animator>().SetTrigger("startBlinking");
+
+                //splash.GetComponent<RawImage>().texture = GetComponent<GroundGenerator>().fruitGenerator.getTextureOfFruitType(collider.gameObject.GetComponent<SampleFruitsType>().fruitType);
+                //splash.GetComponent<Animator>().Play("splashAnim");
+                            
                 Handheld.Vibrate();
                 StartCoroutine(stopBlinking(3f)) ;
             }

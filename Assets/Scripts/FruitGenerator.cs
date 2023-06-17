@@ -20,6 +20,21 @@ public class FruitGenerator : MonoBehaviour
     public GameObject sampleWatermelon;
 
 
+    public Texture textureApple;
+    public Texture textureBanana;
+    public Texture textureCarrot;
+    public Texture textureCherry;
+    public Texture texturePurpleGrapes;
+    public Texture textureGreenGrapes;
+    public Texture textureLemon;
+    public Texture textureOrange;
+    public Texture texturePear;
+    public Texture texturePineapple;
+    public Texture textureStrawberry;
+    public Texture textureTomato;
+    public Texture textureWatermelon;
+
+
     public void generateRandom(Vector3 position)
     {
         FruitType fruitType = getRandomFruitType();
@@ -71,6 +86,41 @@ public class FruitGenerator : MonoBehaviour
                 return sampleTomato;
             case FruitType.WATERMENON:
                 return sampleWatermelon;
+        }
+        return null;
+    }
+
+
+    public Texture getTextureOfFruitType(FruitType type)
+    {
+        switch (type)
+        {
+            case FruitType.APPLE:
+                return textureApple;
+            case FruitType.BANANA:
+                return textureBanana;
+            case FruitType.CARROT:
+                return textureCarrot;
+            case FruitType.CHERRY:
+                return textureCherry;
+            case FruitType.PURPLE_GRAPES:
+                return texturePurpleGrapes;
+            case FruitType.GREEN_GRAPES:
+                return textureGreenGrapes;
+            case FruitType.LEMON:
+                return textureLemon;
+            case FruitType.ORANGE:
+                return textureOrange;
+            case FruitType.PEAR:
+                return texturePear;
+            case FruitType.PINE_APPLE:
+                return texturePineapple;
+            case FruitType.STRAWBERRY:
+                return textureStrawberry;
+            case FruitType.TOMATO:
+                return textureTomato;
+            case FruitType.WATERMENON:
+                return textureWatermelon;
         }
         return null;
     }
