@@ -23,6 +23,6 @@ public class UI_MainMenu : MonoBehaviour
 
     public void setOnClicked3()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MenuScene");
     }
 }

@@ -22,6 +22,8 @@ public class GameData : MonoBehaviour
 
     public GameObject liquid;
 
+    public GameObject EndMenu;
+
     public AudioSource gameMusic;
 
     private const float maxLiquidHeight = 5.5f;
@@ -58,7 +60,8 @@ public class GameData : MonoBehaviour
         gameMusic.Stop();
 
         Ads.GetComponent<AdsInitializer>().InitializeAds();
-
+        EndMenu.SetActive(true);
+        currentRequestBox.SetActive(false);
         if (isWin)
         {
             AppData.currentLevelIndex++;
